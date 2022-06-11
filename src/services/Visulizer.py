@@ -9,7 +9,7 @@ class Visulizer:
         self.three_display = three_display
 
     def show(self, frame_o: np.array, frame_f: np.array) -> None:
-        if (frame_o is None):
+        if (frame_o is None or frame_f is None):
             return 
         
         # Camera view
@@ -21,4 +21,4 @@ class Visulizer:
         self.display.display_2d(frame_f)
 
         # 3d view cloud point
-        self.threeDisplay.display()
+        self.three_display.display()

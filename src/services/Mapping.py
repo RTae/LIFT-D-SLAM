@@ -1,9 +1,8 @@
 from skimage.transform import FundamentalMatrixTransform
 from src.utils.configs.app_settings import get_settings
-from provider.feature.ORBFeature import ORBFeature
-from src.provider import visualizes
+from src.provider import visualizes, feature
 from skimage.measure import ransac
-import models as models
+import src.models as models
 from typing import Any
 import numpy as np
 import cv2
@@ -26,7 +25,7 @@ class Point():
 
 class Mapping:
 
-    def __init__(self, fe: ORBFeature, camera_scale: Any=get_settings().CAMERA_SCALE) -> None:
+    def __init__(self, fe: feature.ORBFeature, camera_scale: Any=get_settings().get_camera_scale()) -> None:
         self.bf = cv2.BFMatcher(cv2.NORM_HAMMING)
         self.camera_scale = camera_scale
         self.fe = fe
@@ -74,15 +73,15 @@ class Mapping:
                 pts1 = frame_1.key_pts[m.queryIdx]
                 pts2 = frame_2.key_pts[m.trainIdx]
 
-            # travel less than 10% of diagonal and be within orb distance 32
-            if np.linalg.norm((pts1-pts2)) < 0.1*np.linalg.norm([frame_1.w, frame_2.h]) and m.distance < 32:
-                # keep around indices
-                # TODO: refactor this to not be O(N^2)
-                if m.queryIdx not in x1 and m.trainIdx not in x2:
-                    x1.append(m.queryIdx)
-                    x2.append(m.trainIdx)
+                # travel less than 10% of diagonal and be within orb distance 32
+                if np.linalg.norm((pts1-pts2)) < 0.1*np.linalg.norm([frame_1.w, frame_2.h]) and m.distance < 32:
+                    # keep around indices
+                    # TODO: refactor this to not be O(N^2)
+                    if m.queryIdx not in x1 and m.trainIdx not in x2:
+                        x1.append(m.queryIdx)
+                        x2.append(m.trainIdx)
 
-                ret.append((pts1, pts2))
+                        ret.append((pts1, pts2))
 
         # no duplicates
         assert(len(set(x1)) == len(x1))
@@ -121,9 +120,10 @@ class Mapping:
             ret[i] = vt[3]
         return ret
     
-    def __tranform_feature(self,frame: np.array, three_display: visualizes.ThreeDViewer, frame_1, frame_2, x1, x2, rt):
+    def __tranform_feature(self,frame_o: np.array, three_display: visualizes.ThreeDViewer, frame_1, frame_2, x1, x2, rt):
 
         frame_1.pose = np.dot(rt, frame_2.pose)
+        frame_f = frame_o
 
         for i,idx in enumerate(x2):
             if frame_2.pts[idx] is not None:
@@ -146,15 +146,18 @@ class Mapping:
         for pt1, pt2 in zip(frame_1.key_pts[x1], frame_2.key_pts[x2]):
             u1, v1 = self.fe.denormalize(self.camera_scale, pt1)
             u2, v2 = self.fe.denormalize(self.camera_scale, pt2)
-            cv2.circle(frame, (u1, v1), color=(0,255,0), radius=1)
-            cv2.line(frame, (u1, v1), (u2, v2), color=(255, 255,0))
+            cv2.circle(frame_f, (u1, v1), color=(0,255,0), radius=1)
+            cv2.line(frame_f, (u1, v1), (u2, v2), color=(255, 255,0))
         
-        return frame
+        return frame_f
 
     def run(self, frame: np.array, frame_data: models.Frame, three_display: visualizes.ThreeDViewer):
         '''
         Main pipline
         '''
+        if frame is None:
+            return
+
         if frame_data.id == 0:
             return
         

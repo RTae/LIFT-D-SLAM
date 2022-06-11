@@ -13,7 +13,7 @@ def main():
 
     c = services.Camera(args)
     t = services.Tracking()
-    m = services.Mapping()
+    m = services.Mapping(f_orb_f)
     v = services.Visulizer(vd, vtdv)
     while c.is_open():
         # Get frame from camera
