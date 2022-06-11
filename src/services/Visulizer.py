@@ -3,7 +3,7 @@ import cv2
 
 class Visulizer:
 
-    def show(self, frame: np.array()) -> None:
+    def show(self, frame: np.array) -> None:
         if (frame is None):
             return 
         
