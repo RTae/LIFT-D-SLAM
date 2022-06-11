@@ -17,6 +17,10 @@ ament-pyflakes==0.9.6
 ament-uncrustify==0.9.6
 ament-xmllint==0.9.6
 certifi==2022.5.18.1
+cloudpickle @ file:///tmp/build/80754af9/cloudpickle_1632508026186/work
+cycler==0.11.0
+cytoolz==0.11.0
+dask @ file:///opt/conda/conda-bld/dask-core_1653082099681/work
 demo-nodes-py==0.9.3
 domain-coordinator==0.9.2
 examples-rclpy-executors==0.9.4
@@ -27,16 +31,34 @@ examples-rclpy-minimal-publisher==0.9.4
 examples-rclpy-minimal-service==0.9.4
 examples-rclpy-minimal-subscriber==0.9.4
 examples-tf2-py==0.13.13
+fonttools==4.33.3
+fsspec @ file:///opt/conda/conda-bld/fsspec_1652802107001/work
+imagecodecs @ file:///opt/conda/conda-bld/imagecodecs_1635529128494/work
+imageio @ file:///tmp/build/80754af9/imageio_1617700267927/work
+kiwisolver==1.4.2
 launch==0.10.8
 launch-ros==0.11.6
 launch-testing==0.10.8
 launch-testing-ros==0.11.6
 launch-xml==0.10.8
 launch-yaml==0.10.8
-numpy==1.22.4
+locket @ file:///opt/conda/conda-bld/locket_1652903113817/work
+matplotlib==3.5.1
+networkx @ file:///opt/conda/conda-bld/networkx_1647437648384/work
+numpy @ file:///opt/conda/conda-bld/numpy_and_numpy_base_1652801678599/work
 opencv-python==4.6.0.66
 osrf-pycommon==0.1.11
+packaging @ file:///tmp/build/80754af9/packaging_1637314298585/work
+partd @ file:///opt/conda/conda-bld/partd_1647245470509/work
+Pillow==9.1.0
+pydantic @ file:///opt/conda/conda-bld/pydantic_1651218719524/work
 pygame==2.1.2
+PyOpenGL==3.1.1a1
+pyparsing==3.0.8
+python-dateutil==2.8.2
+python-dotenv==0.20.0
+PyWavelets @ file:///opt/conda/conda-bld/pywavelets_1648820432778/work
+PyYAML==6.0
 quality-of-service-demo-py==0.9.3
 ros2action==0.9.11
 ros2bag==0.3.9
@@ -72,10 +94,16 @@ rqt-shell==1.0.2
 rqt-srv==1.0.3
 rqt-top==1.0.2
 rqt-topic==1.2.2
+scikit-image @ file:///opt/conda/conda-bld/scikit-image_1648480705521/work
+scipy @ file:///mnt/packages/scipy_1631209936136/work
 sensor-msgs-py==2.0.5
+six==1.16.0
 sros2==0.9.5
 test-launch-ros==0.11.6
+tifffile @ file:///tmp/build/80754af9/tifffile_1627275862826/work
+toolz @ file:///tmp/build/80754af9/toolz_1636545406491/work
 topic-monitor==0.9.3
 tracetools-launch==1.0.5
 tracetools-read==1.0.5
 tracetools-trace==1.0.5
+typing_extensions @ file:///opt/conda/conda-bld/typing_extensions_1647553014482/work
