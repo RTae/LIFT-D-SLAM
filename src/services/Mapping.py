@@ -120,10 +120,10 @@ class Mapping:
             ret[i] = vt[3]
         return ret
     
-    def __tranform_feature(self,frame_o: np.array, three_display: visualizes.ThreeDViewer, frame_1, frame_2, x1, x2, rt):
+    def __tranform_feature(self, frame_o: np.array, three_display: visualizes.ThreeDViewer, frame_1, frame_2, x1, x2, rt):
 
         frame_1.pose = np.dot(rt, frame_2.pose)
-        frame_f = frame_o
+        frame_f = frame_o.copy()
 
         for i,idx in enumerate(x2):
             if frame_2.pts[idx] is not None:
