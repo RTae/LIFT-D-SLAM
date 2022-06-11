@@ -1,5 +1,5 @@
-import pygame
 from pygame.locals import DOUBLEBUF
+import pygame
 
 class Display(object):
 
