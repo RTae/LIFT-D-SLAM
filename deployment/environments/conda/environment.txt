@@ -1,4 +1,4 @@
-name: LIFT-D-SLAM
+name: CVCI
 channels:
   - defaults
 dependencies:
@@ -58,6 +58,7 @@ dependencies:
   - packaging=21.3=pyhd3eb1b0_0
   - partd=1.2.0=pyhd3eb1b0_1
   - pip=21.2.4=py38hd43f75c_0
+  - pydantic=1.9.0=py38h2f4d8fa_1
   - pyopengl=3.1.1a1=py38hd43f75c_0
   - python=3.8.13=hc137634_0
   - pywavelets=1.3.0=py38h2f4d8fa_0
@@ -71,6 +72,8 @@ dependencies:
   - tifffile=2021.7.2=pyhd3eb1b0_2
   - tk=8.6.11=h241ca14_0
   - toolz=0.11.2=pyhd3eb1b0_0
+  - typing-extensions=4.1.1=hd3eb1b0_0
+  - typing_extensions=4.1.1=pyh06a4308_0
   - wheel=0.37.1=pyhd3eb1b0_0
   - xz=5.2.5=hfd63f10_1
   - yaml=0.2.5=hfd63f10_0
@@ -85,5 +88,6 @@ dependencies:
     - pillow==9.1.0
     - pyparsing==3.0.8
     - python-dateutil==2.8.2
+    - python-dotenv==0.20.0
     - six==1.16.0
 prefix: /home/parallels/.conda/envs/CVCI
