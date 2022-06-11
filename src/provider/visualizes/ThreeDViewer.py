@@ -17,7 +17,10 @@ class ThreeDViewer():
     It creates a new process that runs the function `viewer_thread` in parallel with the main process
     """
     self.q = Queue()
-    self.vp = Process(target=self.viewer_thread, args=(self.q,))
+    self.vp = Process(
+              target=self.viewer_thread, 
+              args=(self.q,)
+            )
     self.vp.daemon = True
     self.vp.start()
 
@@ -89,9 +92,12 @@ class ThreeDViewer():
     """
     if self.q is None:
       return
+
     poses, pts = [], []
     for f in self.frames:
       poses.append(f.pose)
+
     for p in self.points:
       pts.append(p.pt)
+
     self.q.put((np.array(poses), np.array(pts)))

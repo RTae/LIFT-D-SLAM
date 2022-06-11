@@ -1,20 +1,21 @@
-from src.utils.helper.general import argParser
+from src.utils.helper import argParser, logging
 from src.provider import visualizes, feature
 import src.services as services
 
 def main():
+    # Utils
     args = argParser.make_parser().parse_args()
+    logging.setup_logging()
 
     # Feature extraction provider
     f_orb_f = feature.ORBFeature()
     # Visulizer provider
-    vd = visualizes.Display()
     vtdv = visualizes.ThreeDViewer()
 
     c = services.Camera(args)
     t = services.Tracking()
     m = services.Mapping(f_orb_f)
-    v = services.Visulizer(vd, vtdv)
+    v = services.Visulizer(vtdv)
     while c.is_open():
         # Get frame from camera
         frame = c.run()
