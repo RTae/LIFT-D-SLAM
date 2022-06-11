@@ -1,9 +1,10 @@
+from src.utils.configs.app_settings import get_settings
 from pygame.locals import DOUBLEBUF
 import pygame
 
 class Display(object):
 
-  def __init__(self, w, h):
+  def __init__(self, w:int = get_settings().CAMERA_WIDTH_SIZE, h:int = get_settings().CAMERA_HEIGHT_SIZE):
     pygame.init()
     self.screen = pygame.display.set_mode((w, h), DOUBLEBUF)
     self.surface = pygame.Surface(self.screen.get_size()).convert()

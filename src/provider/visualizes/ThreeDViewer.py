@@ -3,20 +3,6 @@ import OpenGL.GL as gl
 import numpy as np
 import pangolin
 
-class Point():
-  def __init__(self, mapp, loc):
-    self.pt = loc
-    self.frames = []
-    self.idxs = []
-    
-    self.id = len(mapp.points)
-    mapp.points.append(self)
-
-  def add_observation(self, frame, idx):
-    frame.pts[idx] = self
-    self.frames.append(frame)
-    self.idxs.append(idx)
-
 class ThreeDViewer():
   def __init__(self):
     self.frames = []
@@ -24,7 +10,9 @@ class ThreeDViewer():
     self.state = None
     self.q = None
 
-  def create_viewer(self):
+    self.__on_init()
+
+  def __on_init(self):
     """
     It creates a new process that runs the function `viewer_thread` in parallel with the main process
     """
