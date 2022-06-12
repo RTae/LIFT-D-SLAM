@@ -88,6 +88,8 @@ class Mapping:
     assert(len(set(x1)) == len(x1))
     assert(len(set(x2)) == len(x2))
 
+    print(ret)
+
     assert len(ret) >= 8
     ret = np.array(ret)
     x1 = np.array(x1)
