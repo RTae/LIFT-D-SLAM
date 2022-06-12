@@ -8,19 +8,19 @@ def main():
     logging.setup_logging()
 
     # Feature extraction provider
-    f_orb_f = feature.ORBFeature()
+    fe = feature.LIFTFeature()
     # Visulizer provider
     vtdv = visualizes.ThreeDViewer()
 
     c = services.Camera(args)
     t = services.Tracking()
-    m = services.Mapping(f_orb_f)
+    m = services.Mapping(fe)
     v = services.Visulizer(vtdv)
     while c.is_open():
         # Get frame from camera
         frame = c.run()
         # Extract it
-        frame_data = t.run(vtdv, frame, f_orb_f)
+        frame_data = t.run(vtdv, frame, fe)
         # Mapping feature
         frame_f = m.run(frame, frame_data, vtdv)
         # Show the result

@@ -1,7 +1,8 @@
 from multiprocessing import Process, Queue
+import pypangolin as pangolin
 import OpenGL.GL as gl
 import numpy as np
-import pypangolin as pangolin
+import logging
 
 class ThreeDViewer():
   def __init__(self):
@@ -71,17 +72,18 @@ class ThreeDViewer():
     gl.glClearColor(0, 0, 0, 0)
     self.dcam.Activate(self.scam)
 
-    # draw keypoints
-    gl.glPointSize(2)
-    gl.glColor3f(0.184314, 0.309804, 0.184314)
-    pangolin.DrawPoints(self.state[1]+1)
-    gl.glPointSize(1)
-    gl.glColor3f(0.3099, 0.3099,0.184314)
-    pangolin.DrawPoints(self.state[1])
+    if len(self.state[1]) != 0 and len(self.state[0]) != 0 :
+      # draw keypoints
+      gl.glPointSize(2)
+      gl.glColor3f(0.184314, 0.309804, 0.184314)
+      pangolin.DrawPoints(self.state[1]+1)
+      gl.glPointSize(1)
+      gl.glColor3f(0.3099, 0.3099,0.184314)
+      pangolin.DrawPoints(self.state[1])
 
-    # draw poses
-    gl.glColor3f(0.0, 1.0, 1.0)
-    pangolin.DrawCameras(self.state[0])
+      # draw poses
+      gl.glColor3f(0.0, 1.0, 1.0)
+      pangolin.DrawCameras(self.state[0])
 
     pangolin.FinishFrame()
 

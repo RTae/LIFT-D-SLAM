@@ -3,7 +3,7 @@ from src.utils.configs.app_settings import get_settings
 from src.provider import visualizes, feature
 from skimage.measure import ransac
 import src.models as models
-from typing import Any
+from typing import Any, Union
 import numpy as np
 import logging
 import cv2
@@ -26,7 +26,7 @@ class Point():
 
 class Mapping:
 
-  def __init__(self, fe: feature.ORBFeature, camera_scale: Any=get_settings().get_camera_scale()) -> None:
+  def __init__(self, fe: Union[feature.ORBFeature, feature.LIFTFeature], camera_scale: Any=get_settings().get_camera_scale()) -> None:
     self.bf = cv2.BFMatcher(cv2.NORM_HAMMING)
     self.camera_scale = camera_scale
     self.fe = fe

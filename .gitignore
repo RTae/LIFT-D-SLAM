@@ -189,7 +189,7 @@ yarn.lock
 !.vscode/extensions.json
 
 *.mp4
-workspace
+*.png
 yarn.lock
 *.dev.*
 .env.daikin
