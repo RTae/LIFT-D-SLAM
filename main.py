@@ -1,6 +1,7 @@
 from src.utils.helper import argParser, logging
 from src.provider import visualizes, feature
 import src.services as services
+import tqdm
 
 def main():
     # Utils
@@ -16,6 +17,9 @@ def main():
     t = services.Tracking()
     m = services.Mapping(fe)
     v = services.Visulizer(vtdv)
+
+    # Add progress bar
+    log_bar = tqdm.tqdm(total=c.get_total_frame(), desc='Frame number', position=0)
     while c.is_open():
         # Get frame from camera
         frame = c.run()
@@ -25,6 +29,7 @@ def main():
         frame_f = m.run(frame, frame_data, vtdv)
         # Show the result
         v.show(frame, frame_f)
+        log_bar.update(1)
 
 if __name__ == '__main__':
     main()

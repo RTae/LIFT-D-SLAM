@@ -1,9 +1,9 @@
-from skimage.transform import FundamentalMatrixTransform
+from skimage.transform import EssentialMatrixTransform
 from src.utils.configs.app_settings import get_settings
-from src.provider import visualizes, feature
+from src.provider import visualizes
 from skimage.measure import ransac
 import src.models as models
-from typing import Any, Union
+from typing import Any
 import numpy as np
 import logging
 import cv2
@@ -26,10 +26,11 @@ class Point():
 
 class Mapping:
 
-  def __init__(self, fe: Union[feature.ORBFeature, feature.LIFTFeature], camera_scale: Any=get_settings().get_camera_scale()) -> None:
+  def __init__(self, fe: Any, camera_scale: Any=get_settings().get_camera_scale()) -> None:
     self.bf = cv2.BFMatcher(cv2.NORM_HAMMING)
     self.camera_scale = camera_scale
     self.fe = fe
+    self.distance_theadshould = 150
 
   def __extract_rt(self, feature):
     """
@@ -74,8 +75,7 @@ class Mapping:
             pts1 = frame_1.key_pts[m.queryIdx]
             pts2 = frame_2.key_pts[m.trainIdx]
 
-            # travel less than 10% of diagonal and be within orb distance 32
-            if np.linalg.norm((pts1-pts2)) < 0.1*np.linalg.norm([frame_1.w, frame_1.h]) and m.distance < 32:
+            if np.linalg.norm((pts1-pts2)) < 0.1*np.linalg.norm([frame_1.w, frame_1.h]) and m.distance < self.distance_theadshould:
                 # keep around indices
                 # TODO: refactor this to not be O(N^2)
                 if m.queryIdx not in x1 and m.trainIdx not in x2:
@@ -88,8 +88,6 @@ class Mapping:
     assert(len(set(x1)) == len(x1))
     assert(len(set(x2)) == len(x2))
 
-    print(ret)
-
     assert len(ret) >= 8
     ret = np.array(ret)
     x1 = np.array(x1)
@@ -97,9 +95,9 @@ class Mapping:
 
     # fit matrix
     model, f_pts = ransac((ret[:, 0], ret[:, 1]),
-                            FundamentalMatrixTransform,
+                            EssentialMatrixTransform,
                             min_samples=8,
-                            residual_threshold=0.001,
+                            residual_threshold=0.02,
                             max_trials=100)
     
     logging.info("Matches: %d -> %d -> %d -> %d" % (len(frame_1.descriptors), len(matches), len(f_pts), sum(f_pts)))

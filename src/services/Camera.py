@@ -41,6 +41,9 @@ class Camera:
             return None
         
         return frame
+
+    def get_total_frame(self) -> int:
+        return self.__cap.get(cv2.CAP_PROP_FRAME_COUNT)
     
     def run(self) -> np.array:
         '''
